@@ -4,21 +4,20 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const NewTodo = () => {
-    const [todos, setTodos] = useState([]);
-    const [course, setCourse] = useState("");
+const NewFinance = () => {
     const [title, setTitle] = useState("");
+    const [amount, setAmount] = useState(0);
     const [date, setDate] = useState("");
     const navigate = useNavigate();
 
-    const newTodo = async (event) => {
+    const newFinance = async (event) => {
         event.preventDefault();
-        if (course.trim() === "") {
-          alert("Enter valid course");
+        if (title.trim() === "") {
+          alert("Enter valid title");
           return;
         }
-        if (title.trim() === "") {
-            alert("Enter valid title");
+        if (amount < 0) {
+            alert("Enter valid amount");
             return;
         }
         if (date.trim() === "") {
@@ -27,38 +26,23 @@ const NewTodo = () => {
         }
 
         const { uid } = auth.currentUser;
-        await addDoc(collection(db, "todos"), {
-            course,
+        await addDoc(collection(db, "finances"), {
             title,
+            amount,
             date,
             createdAt: serverTimestamp(),
             uid,
         });
-        navigate("/todos");
+        navigate("/finances");
 
       };
 
   return (
-    <form onSubmit={(event) => newTodo(event)} className="new-todo input-group">
+    <form onSubmit={(event) => newFinance(event)} className="new-finance input-group">
 
         <div className="row col-6 mx-auto">
-        <h1 className="text-center mx-auto mt-3">Add New Todo</h1>
-
-            <div className="col-12 mx-auto mt-5 mb-2">
-            <label htmlFor="courseInput" >
-            Course
-            </label>
-                <input
-                id="courseInput"
-                name="courseInput"
-                type="text"
-                className="form-input__input form-control"
-                placeholder="enter course..."
-                value={course}
-                onChange={(e) => setCourse(e.target.value)}
-                />
-            </div>
-            <div className="col-12 mx-auto mb-2">
+        <h1 className="text-center mx-auto mt-3">Add New Financial Deadline</h1>
+        <div className="col-12 mx-auto mb-4">
         <label htmlFor="titleInput" >
         Title
         </label>
@@ -70,6 +54,20 @@ const NewTodo = () => {
         placeholder="enter title..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
+        />
+        </div>
+        <div className="col-12 mx-auto mb-4">
+        <label htmlFor="amountInput" >
+        Amount
+        </label>
+        <input
+        id="amountInput"
+        name="amountInput"
+        type="number"
+        className="form-input__input form-control"
+        placeholder="enter amount..."
+        value={amount}
+        onChange={(e) => setAmount(e.target.value)}
         />
         </div>
         <div className="col-12 mx-auto mb-4">
@@ -90,9 +88,8 @@ const NewTodo = () => {
         <Button type="submit" className="mx-auto px-5">Add</Button>
         </div>
         </div>
-        
   </form>
   );
 }
 
-export default NewTodo;
+export default NewFinance;

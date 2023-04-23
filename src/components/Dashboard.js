@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -18,10 +19,12 @@ const Dashboard = () => {
                 </div>  
             </div>  
             <div className="col-4 mb-5">
-                <div className="card">
-                    <h2 className="mt-5 card-title">My To-Do List</h2>
-                    <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Assignment submission checklist</p>
-                </div>  
+                <Link to = "/todos" >
+                    <div className="card">
+                        <h2 className="mt-5 card-title">My To-Do List</h2>
+                        <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Assignment submission checklist</p>
+                    </div>  
+                </Link>
             </div>  
             <div className="col-4 mb-5">
                 <div className="card">
@@ -30,10 +33,12 @@ const Dashboard = () => {
                 </div>  
             </div>  
             <div className="col-4 mb-5">
-                <div className="card">
-                    <h2 className="mt-5 card-title">Finance</h2>
-                    <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Finance Manager</p>
-                </div>  
+                <Link to = "/finances" >
+                    <div className="card">
+                        <h2 className="mt-5 card-title">Finances</h2>
+                        <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Finance Manager</p>
+                    </div>  
+                </Link>
             </div>  
         </div>
     </div>

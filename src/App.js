@@ -9,6 +9,8 @@ import Dashboard from "./components/Dashboard";
 import { Route, Routes } from "react-router-dom";
 import TodoList from "./components/TodoList";
 import NewTodo from "./components/NewTodo";
+import NewFinance from "./components/NewFinance";
+import FinanceList from "./components/FinanceList";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -25,6 +27,8 @@ function App() {
           <Route path='/chat' element={<ChatBox/>} />
           <Route path='/todos' element={<TodoList/>} />
           <Route path='/todos/new' element={<NewTodo/>} />
+          <Route path='/finances' element={<FinanceList/>} />
+          <Route path='/finances/new' element={<NewFinance/>} />
         </Routes>
         </>
       )}
