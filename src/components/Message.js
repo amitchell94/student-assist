@@ -4,7 +4,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 const Message = ({ message }) => {
   const [user] = useAuthState(auth);
-  console.log(message.avatar);
+  // console.log(message.createdAt);
   return (
     <div
       className={`chat-bubble ${message.uid === user.uid ? "right" : ""}`}>
@@ -16,6 +16,7 @@ const Message = ({ message }) => {
       <div className="chat-bubble__right">
         <p className="user-name">{message.name}</p>
         <p className="user-message">{message.text}</p>
+        <p className="user-message text-muted">{ message.createdAt === null ? "" : message.createdAt.toDate().toLocaleTimeString("en-US")}</p>
       </div>
     </div>
   );

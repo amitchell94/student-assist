@@ -33,20 +33,26 @@ const ChatBox = ({match}) => {
     );
 
     const unsubscribe = onSnapshot(messagesQ, (QuerySnapshot) => {
-      let messages = [];
+      let mesgs = [];
       QuerySnapshot.forEach((doc) => {
-        messages.push({ ...doc.data(), id: doc.id });
+        mesgs.push({ ...doc.data(), id: doc.id });
       });
-      const sortedMessages = messages?.sort((a, b) => {
+      const sortedMessages = mesgs?.sort((a, b) => {
         // Assuming "createdAt" is a timestamp or a string in ISO 8601 format
-        const dateA = new Date(a.createdAt);
-        const dateB = new Date(b.createdAt);
+console.log("a" + a.createdAt)
+console.log("b" + b.createdAt)
+        const dateA = a.createdAt === null ? "" : a.createdAt.toDate();
+        const dateB = b.createdAt === null ? "" : b.createdAt.toDate();
+
         return dateA - dateB;
+
       });
       setMessages(sortedMessages);
     });
     return () => unsubscribe;
   }, []);
+
+  // const sortedMessages = messages?.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
 
   return (
     <main className="chat-box">
