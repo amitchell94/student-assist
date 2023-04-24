@@ -1,19 +1,21 @@
 import React from "react";
 import GoogleSignin from "../img/btn_google_signin_dark_pressed_web.png";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
 
 const Welcome = () => {
+
   const googleSignIn = () => {
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider);
+    // sendUserInfo();
   };
 
   return (
     <main className="welcome">
-      <h2>Welcome to React Chat.</h2>
-      <img src="/logo512.png" alt="ReactJs logo" width={50} height={50} />
-      <p>Sign in with Google to chat with with your fellow React Developers.</p>
+      <h2>Welcome to the Student Assist App</h2>
+      <p>Sign in with Google to access the app and excel in your studies!</p>
       <button className="sign-in">
         <img
           onClick={googleSignIn}

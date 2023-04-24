@@ -13,10 +13,12 @@ const Dashboard = () => {
                 </div>  
             </div>  
             <div className="col-4 mb-5">
-                <div className="card">
-                    <h2 className="mt-5 card-title">Student Interaction</h2>
-                    <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Student to student interaction</p>
-                </div>  
+                <Link to = "/chat" >
+                    <div className="card">
+                        <h2 className="mt-5 card-title">Student Interaction</h2>
+                        <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Student to student interaction</p>
+                    </div>  
+                </Link>
             </div>  
             <div className="col-4 mb-5">
                 <Link to = "/todos" >

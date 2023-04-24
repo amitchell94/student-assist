@@ -2,38 +2,47 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   query,
   collection,
-  orderBy,
   onSnapshot,
-  limit,
+  where
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
+import { Link } from "react-router-dom";
 
 const UserList = () => {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
         const q = query(
-          collection(db, "messages"),
-          orderBy("createdAt"),
-          limit(50)
-        );
+            collection(db, "users"));
     
         const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
-          let messages = [];
+          let usrs = [];
           QuerySnapshot.forEach((doc) => {
-            messages.push({ ...doc.data(), id: doc.id });
+            if (doc.id !== auth.currentUser.uid.toString()) {
+            usrs.push({ ...doc.data(), id: doc.id });
+            }
           });
-          setMessages(messages);
+          setUsers(usrs);
         });
         return () => unsubscribe;
       }, []);
 
     return (
-        <ul>
-        {users.map(user => (
-            <li key={user.id}>{user.name}</li>
+        <div className="mx-5 mt-3 row">
+        <div className="text-center">
+            <h1 className="my-2">User List</h1>
+            <h6 className="my-3"> Click a name to start a conversation</h6>
+            </div>
+        
+    <ul className="list-group col-5 mx-auto">
+        {users.map(user => (<>
+            {<Link to = {`/chat/${user.id}`} >
+                <li key={user.id} className="list-group-item">{user.name}</li>
+            </Link>}
+            </>
         ))}
         </ul>
+        </div>
     );
 }
 

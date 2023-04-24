@@ -5,28 +5,45 @@ import {
   orderBy,
   onSnapshot,
   limit,
+  where,
+  and,
+  or,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { auth, db } from "../firebase";
 import Message from "./Message";
 import SendMessage from "./SendMessage";
+import { useParams } from "react-router-dom";
 
-const ChatBox = () => {
+const ChatBox = ({match}) => {
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
+  const { id } = useParams();
 
   useEffect(() => {
-    const q = query(
+    const messagesQ = query(
       collection(db, "messages"),
-      orderBy("createdAt"),
+
+      or(
+        and(where("toId", "==", id.toString()),
+        where("uid", "==", auth.currentUser.uid.toString())),
+        and(where("uid", "==", id.toString()),
+        where("toId", "==", auth.currentUser.uid.toString()))
+      ),
       limit(50)
     );
 
-    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+    const unsubscribe = onSnapshot(messagesQ, (QuerySnapshot) => {
       let messages = [];
       QuerySnapshot.forEach((doc) => {
         messages.push({ ...doc.data(), id: doc.id });
       });
-      setMessages(messages);
+      const sortedMessages = messages?.sort((a, b) => {
+        // Assuming "createdAt" is a timestamp or a string in ISO 8601 format
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return dateA - dateB;
+      });
+      setMessages(sortedMessages);
     });
     return () => unsubscribe;
   }, []);
@@ -40,7 +57,7 @@ const ChatBox = () => {
       </div>
       {/* when a new message enters the chat, the screen scrolls dowwn to the scroll div */}
       <span ref={scroll}></span>
-      <SendMessage scroll={scroll} />
+      <SendMessage scroll={scroll} toId={id} />
     </main>
   );
 };

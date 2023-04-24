@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { auth, db } from "../firebase";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
-const SendMessage = ({ scroll }) => {
+const SendMessage = ({ scroll, toId }) => {
   const [message, setMessage] = useState("");
 
   const sendMessage = async (event) => {
@@ -17,6 +17,7 @@ const SendMessage = ({ scroll }) => {
       name: displayName,
       avatar: photoURL,
       createdAt: serverTimestamp(),
+      toId: toId,
       uid,
     });
     setMessage("");

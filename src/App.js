@@ -1,4 +1,4 @@
-import { auth } from "./firebase";
+import { auth, db } from "./firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
 import "./App.css";
 import NavBar from "./components/NavBar";
@@ -11,9 +11,27 @@ import TodoList from "./components/TodoList";
 import NewTodo from "./components/NewTodo";
 import NewFinance from "./components/NewFinance";
 import FinanceList from "./components/FinanceList";
+import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+import { useEffect } from "react";
+import UserList from "./components/UserList";
+import { propTypes } from "react-bootstrap/esm/Image";
 
 function App() {
   const [user] = useAuthState(auth);
+
+  const sendUserInfo = async () => {
+    const { uid, displayName } = user;
+    await setDoc(doc(db, "users", uid), {
+      // id: uid,
+      name: displayName
+    });
+  };
+
+  useEffect(() => {
+    if (user) {
+      sendUserInfo(user);
+    }
+  }, [user])
 
   return (
     <div className="App bg-light">
@@ -24,11 +42,12 @@ function App() {
         <>
         <Routes>
           <Route path='/' element={<Dashboard/>} />
-          <Route path='/chat' element={<ChatBox/>} />
+          <Route path='/chat/:id' element={<ChatBox/>} />
           <Route path='/todos' element={<TodoList/>} />
           <Route path='/todos/new' element={<NewTodo/>} />
           <Route path='/finances' element={<FinanceList/>} />
           <Route path='/finances/new' element={<NewFinance/>} />
+          <Route path='/chat' element={<UserList/>} />
         </Routes>
         </>
       )}
