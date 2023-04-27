@@ -29,10 +29,12 @@ const Dashboard = () => {
                 </Link>
             </div>  
             <div className="col-4 mb-5">
+                <Link to = "/my_courses" >
                 <div className="card">
-                    <h2 className="mt-5 card-title">My courses</h2>
+                    <h2 className="mt-5 card-title">My Courses</h2>
                     <p className="mx-3 mb-5 mt-3 card-subtitle fs-5">Registered Course Details</p>
                 </div>  
+                </Link>
             </div>  
             <div className="col-4 mb-5">
                 <Link to = "/finances" >

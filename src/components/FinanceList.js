@@ -6,6 +6,8 @@ import {
     where,
     onSnapshot,
     limit,
+    deleteDoc,
+    doc,
   } from "firebase/firestore";
   import { auth, db } from "../firebase";
     import TodoCard from "./TodoCard";
@@ -32,12 +34,19 @@ const FinanceList = () => {
         return () => unsubscribe;
       }, []);
 
+      const deleteFinance = async (id) => {
+        if (window.confirm("Are you sure you want to mark this deadline as complete and remove it from the list?")){ 
+            const todoRef = doc(db, "finances", id);
+            await deleteDoc(todoRef);
+        }
+      };
+
   return (
     <div className="text-center">
         <h1 className="mx-auto my-5">Financial Deadline List</h1>
         <div className="row mx-5 d-flex justify-content-center">
             {finances?.map((finance) => (
-              <FinanceCard title={finance.title} amount={finance.amount} date={finance.date} />
+              <FinanceCard id={finance.id} title={finance.title} amount={finance.amount} date={finance.date} deleteFinance={deleteFinance} />
             ))}
         </div>
         <Link to="/finances/new">

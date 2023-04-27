@@ -6,6 +6,8 @@ import {
     where,
     onSnapshot,
     limit,
+    doc,
+    deleteDoc,
   } from "firebase/firestore";
   import { auth, db } from "../firebase";
     import TodoCard from "./TodoCard";
@@ -31,12 +33,19 @@ const TodoList = () => {
         return () => unsubscribe;
       }, []);
 
+      const deleteTodo = async (id) => {
+        if (window.confirm("Are you sure you want to delete this todo?")){ 
+            const todoRef = doc(db, "todos", id);
+            await deleteDoc(todoRef);
+        }
+      };
+    
   return (
     <div className="text-center">
         <h1 className="mx-auto my-5">Todo List</h1>
         <div className="row mx-5 d-flex justify-content-center">
             {todos?.map((todo) => (
-            <TodoCard course={todo.course} title={todo.title} date={todo.date} />
+            <TodoCard id={todo.id} course={todo.course} title={todo.title} date={todo.date} deleteTodo={deleteTodo} />
             ))}
         </div>
         <Link to="/todos/new">

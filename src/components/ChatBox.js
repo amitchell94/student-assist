@@ -39,8 +39,6 @@ const ChatBox = ({match}) => {
       });
       const sortedMessages = mesgs?.sort((a, b) => {
         // Assuming "createdAt" is a timestamp or a string in ISO 8601 format
-console.log("a" + a.createdAt)
-console.log("b" + b.createdAt)
         const dateA = a.createdAt === null ? "" : a.createdAt.toDate();
         const dateB = b.createdAt === null ? "" : b.createdAt.toDate();
 

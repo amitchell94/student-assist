@@ -15,6 +15,9 @@ import { addDoc, collection, doc, setDoc } from "firebase/firestore";
 import { useEffect } from "react";
 import UserList from "./components/UserList";
 import { propTypes } from "react-bootstrap/esm/Image";
+import MyCourses from "./components/MyCourses";
+import CourseList from "./components/CourseList";
+import NewCourse from "./components/NewCourse";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -48,6 +51,9 @@ function App() {
           <Route path='/finances' element={<FinanceList/>} />
           <Route path='/finances/new' element={<NewFinance/>} />
           <Route path='/chat' element={<UserList/>} />
+          <Route path='/my_courses' element={<MyCourses/>} />
+          <Route path='/courses' element={<CourseList/>} />
+          <Route path='/courses/new' element={<NewCourse/>} />
         </Routes>
         </>
       )}
