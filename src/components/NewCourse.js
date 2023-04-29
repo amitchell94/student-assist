@@ -33,7 +33,7 @@ const NewCourse = () => {
     <form onSubmit={(event) => newTodo(event)} className="new-todo input-group">
 
         <div className="row col-6 mx-auto">
-        <h1 className="text-center mx-auto mt-3">Add New Todo</h1>
+        <h1 className="text-center mx-auto mt-3">Add New Course</h1>
 
             <div className="col-12 mx-auto mt-5 mb-2">
             <label htmlFor="codeInput" >

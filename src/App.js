@@ -19,6 +19,7 @@ import MyCourses from "./components/MyCourses";
 import CourseList from "./components/CourseList";
 import NewCourse from "./components/NewCourse";
 import CourseInfo from "./components/CourseInfo";
+import Profile from "./components/Profile";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -56,6 +57,7 @@ function App() {
           <Route path='/courses' element={<CourseList/>} />
           <Route path='/courses/new' element={<NewCourse/>} />
           <Route path='/course/:id' element={<CourseInfo/>} />
+          <Route path='/profile' element={<Profile/>} />
         </Routes>
         </>
       )}
