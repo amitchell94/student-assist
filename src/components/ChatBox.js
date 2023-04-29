@@ -14,7 +14,7 @@ import Message from "./Message";
 import SendMessage from "./SendMessage";
 import { useParams } from "react-router-dom";
 
-const ChatBox = ({match}) => {
+const ChatBox = () => {
   const [messages, setMessages] = useState([]);
   const scroll = useRef();
   const { id } = useParams();

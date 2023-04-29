@@ -18,6 +18,7 @@ import { propTypes } from "react-bootstrap/esm/Image";
 import MyCourses from "./components/MyCourses";
 import CourseList from "./components/CourseList";
 import NewCourse from "./components/NewCourse";
+import CourseInfo from "./components/CourseInfo";
 
 function App() {
   const [user] = useAuthState(auth);
@@ -54,6 +55,7 @@ function App() {
           <Route path='/my_courses' element={<MyCourses/>} />
           <Route path='/courses' element={<CourseList/>} />
           <Route path='/courses/new' element={<NewCourse/>} />
+          <Route path='/course/:id' element={<CourseInfo/>} />
         </Routes>
         </>
       )}
